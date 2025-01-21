@@ -1,0 +1,14 @@
+.main-container {
+  width: 100%;
+  height: 100vh;
+}
+.left-section {
+  width: 23%;
+  background: #f9fbfc;
+}
+.middle-section {
+  width: 55%;
+}
+.right-section {
+  width: 23%;
+}
