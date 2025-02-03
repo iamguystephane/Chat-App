@@ -1,10 +1,5 @@
 import { Stack, IconButton } from "@mui/material";
-import {
-  UploadFile,
-  Mic,
-  Telegram,
-  EmojiEmotionsOutlined,
-} from "@mui/icons-material";
+import { Mic02Icon, SmileIcon, Navigation03Icon, FolderUploadIcon } from 'hugeicons-react'
 
 export default function MessageSender() {
   return (
@@ -14,7 +9,7 @@ export default function MessageSender() {
         className="items-center justify-center bg-blue-50 rounded-3xl"
       >
         <IconButton>
-          <UploadFile />
+          <FolderUploadIcon />
         </IconButton>
         <input
           type="text"
@@ -23,13 +18,13 @@ export default function MessageSender() {
         />
         <Stack direction="row">
           <IconButton>
-            <EmojiEmotionsOutlined />
+            <SmileIcon />
           </IconButton>
           <IconButton>
-            <Mic />
+            <Mic02Icon />
           </IconButton>
           <IconButton color="secondary">
-            <Telegram />
+            <Navigation03Icon />
           </IconButton>
         </Stack>
       </Stack>

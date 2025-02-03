@@ -4,7 +4,7 @@ import { Add } from "@mui/icons-material";
 const ChatFilter = () => {
   return (
     <>
-      <Stack>
+      
         <Stack
           direction="row"
           className="w-full flex items-center justify-between"
@@ -31,7 +31,7 @@ const ChatFilter = () => {
             PUBLIC{" "}
           </button>
         </Stack>
-      </Stack>
+      
     </>
   );
 };

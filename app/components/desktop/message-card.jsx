@@ -1,5 +1,5 @@
 import { Stack } from "@mui/material";
-import profileImg from "../assets/images/AI-creation.jpg";
+import profileImg from "../../assets/images/AI-creation.jpg";
 import Image from 'next/image'
 
 const MessageCard = () => {
@@ -23,8 +23,8 @@ const MessageCard = () => {
               <span style={styles.text}>Please don't forget to send...</span>
             </Stack>
           </Stack>
-          <Stack className='flex-col items-center justify-center'>
-            <span style={{ fontSize: 12, color: "#b849eb", fontWeight: 'bold' }}>8: 30</span>
+          <Stack direction='column' className='flex-col items-center justify-center'>
+            <span style={{color: "#b849eb", fontWeight: 'bold' }} className='sm:text-sm lg:text-base'>8: 30</span>
             <span style={styles.counter} className="rounded-full text-center text-white">
               3
             </span>

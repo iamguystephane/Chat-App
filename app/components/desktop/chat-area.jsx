@@ -5,14 +5,17 @@ import MessageSender from "./message-sender";
 export default function ChatArea() {
   return (
     <>
-      <Stack className='w-full h-full justify-between' direction='column'>
-        <header className='top-0 sticky'>
+      <Stack
+        className="w-full h-full justify-between overflow-auto relative "
+        direction="column"
+      >
+        <header className="sticky top-0 w-full sm:mt-0 lg:mt-3">
           <ConversationNav />
         </header>
-        <main className='w-full h-full overflow-auto '>
+        <main className="w-full h-auto pb-14 pt-5 overflow-auto px-6">
           This is the message section
         </main>
-        <footer className='sticky bottom-0 shadow bg-white p-2'>
+        <footer className="sticky w-full md:bottom-10 lg:bottom-14 p-2 z-50">
           <MessageSender />
         </footer>
       </Stack>

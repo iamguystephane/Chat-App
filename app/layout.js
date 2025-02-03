@@ -17,7 +17,7 @@ const poppins = Poppins({
   weight: ["400", "600", "700"],
 });
 export const metadata = {
-  title: "Chat",
+  title: "Chatty",
   description: "Chat App",
 };
 
