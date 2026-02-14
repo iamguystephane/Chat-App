@@ -36,12 +36,3 @@ const Notifications = () => {
 };
 
 export default Notifications;
-
-const styles = {
-  text: {
-    fontSize: 12,
-  },
-  smallText: {
-    fontSize: 10,
-  },
-};

@@ -1,5 +1,4 @@
 import { Stack, IconButton } from "@mui/material";
-import { Search } from '@mui/icons-material'
 import { Search01Icon } from 'hugeicons-react'
 
 export default function SearchBar() {

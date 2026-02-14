@@ -6,7 +6,7 @@ import ChatNav from "../components/desktop/chatNav";
 import "../styles/chat.css";
 import ChatArea from "../components/desktop/chat-area";
 import Notifications from "../components/desktop/notifications";
-import { useState, useEffect } from "react";
+import { useState, useEffect, ReactNode } from "react";
 import Loading from "../components/desktop/loading";
 import { Poppins } from "next/font/google";
 import Suggestions from "../components/desktop/suggestions";
@@ -18,7 +18,7 @@ const poppins = Poppins({
   weight: ["400", "600", "700"],
 });
 
-export default function AppLayout({ children }) {
+export default function AppLayout({ children }: { children: ReactNode }) {
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {

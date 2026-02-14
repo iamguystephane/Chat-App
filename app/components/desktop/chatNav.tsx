@@ -12,14 +12,22 @@ import {
   UserCircleIcon,
   Notification01Icon,
 } from "hugeicons-react";
+
+interface TabStyles {
+  active: {
+    color: string;
+    backgroundColor: string;
+  };
+}
+
 export default function ChatNav() {
   const router = useRouter();
   const [tab, setTab] = useState("chat");
-  const handleTab = (tab) => {
+  const handleTab = (tab: string) => {
     setTab(tab);
     router.push(`/${tab}`);
   };
-  const styles = {
+  const styles: TabStyles = {
     active: {
       color: "white",
       backgroundColor: "#8855eb",

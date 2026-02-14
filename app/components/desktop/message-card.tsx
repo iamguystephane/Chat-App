@@ -1,6 +1,12 @@
 import { Stack } from "@mui/material";
 import profileImg from "../../assets/images/AI-creation.jpg";
 import Image from 'next/image'
+import { CSSProperties } from "react";
+
+interface Styles {
+  text: CSSProperties;
+  counter: CSSProperties;
+}
 
 const MessageCard = () => {
   return (
@@ -37,7 +43,7 @@ const MessageCard = () => {
 
 export default MessageCard;
 
-const styles = {
+const styles: Styles = {
   text: {
     fontSize: 12,
   },

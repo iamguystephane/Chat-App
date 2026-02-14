@@ -1,4 +1,4 @@
-import { Stack, Typography, IconButton } from "@mui/material";
+import { Stack, IconButton } from "@mui/material";
 import { Add } from "@mui/icons-material";
 
 const ChatFilter = () => {

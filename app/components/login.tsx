@@ -1,24 +1,34 @@
 "use client";
 
 import Loading from "./desktop/loading";
-import { useState, useEffect } from "react";
+import { useState, useEffect, ChangeEvent, FormEvent } from "react";
 import { EyeIcon } from "hugeicons-react";
 import { IconButton } from "@mui/material";
 import Link from "next/link";
 import LoginProviders from "./mobile/login-providers";
 import LoginProvidersDesktop from "./desktop/login-providers";
 
+interface FormData {
+  username: string;
+  password: string;
+}
+
+interface FormErrors {
+  username?: string;
+  password?: string;
+}
+
 const Login = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
-  const [error, setErrors] = useState({});
+  const [error, setErrors] = useState<FormErrors>({});
 
-  const [formData, setFormData] = useState({
+  const [formData, setFormData] = useState<FormData>({
     username: "",
     password: "",
   });
 
-  const handleOnChange = (e) => {
+  const handleOnChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setFormData((prev) => ({
       ...prev,
@@ -27,9 +37,9 @@ const Login = () => {
   };
 
   console.log(formData)
-  const handleOnSubmit = (e) => {
+  const handleOnSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const errorMessages = {};
+    const errorMessages: FormErrors = {};
     if (!formData.username) errorMessages.username = "Username is required";
     if (!formData.password) errorMessages.password = "Password is required";
 
