@@ -1,7 +1,5 @@
 "use client";
 
-import { IconButton, Stack } from "@mui/material";
-
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import {
@@ -13,75 +11,48 @@ import {
   Notification01Icon,
 } from "hugeicons-react";
 
-interface TabStyles {
-  active: {
-    color: string;
-    backgroundColor: string;
-  };
-}
-
 export default function ChatNav() {
   const router = useRouter();
   const [tab, setTab] = useState("chat");
-  const handleTab = (tab: string) => {
-    setTab(tab);
-    router.push(`/${tab}`);
+
+  const handleTab = (tabName: string) => {
+    setTab(tabName);
+    router.push(`/${tabName}`);
   };
-  const styles: TabStyles = {
-    active: {
-      color: "white",
-      backgroundColor: "#8855eb",
+
+  const tabs = [
+    { id: "chat", icon: Chatting01Icon, label: "Chat" },
+    { id: "phone", icon: Call02Icon, label: "Calls" },
+    { id: "mail", icon: Mail01Icon, label: "Mail" },
+    {
+      id: "notifications",
+      icon: Notification01Icon,
+      label: "Alerts",
+      hideOnDesktop: true,
     },
-  };
+    { id: "groups", icon: UserGroupIcon, label: "Groups" },
+    { id: "account", icon: UserCircleIcon, label: "Account" },
+  ];
+
   return (
-    <>
-      <Stack
-        direction="row"
-        spacing={1}
-        className="w-full mt-3 flex items-center justify-between p-2 shadow"
-      >
-        <IconButton
-          onClick={() => handleTab("chat")}
-          style={tab === "chat" ? styles.active : {}}
+    <nav className="flex items-center justify-between gap-1 p-1 bg-gray-50 rounded-xl">
+      {tabs.map(({ id, icon: Icon, hideOnDesktop }) => (
+        <button
+          key={id}
+          onClick={() => handleTab(id)}
+          className={`
+            flex items-center justify-center p-2.5 rounded-lg transition-all duration-200
+            ${hideOnDesktop ? "lg:hidden" : ""}
+            ${
+              tab === id ?
+                "bg-gradient-to-r from-purple-500 to-pink-500 text-white shadow-md shadow-purple-500/25"
+              : "text-gray-500 hover:bg-gray-100 hover:text-gray-700"
+            }
+          `}
         >
-          <Chatting01Icon />
-        </IconButton>
-        <IconButton
-          onClick={() => handleTab("phone")}
-          style={tab === "phone" ? styles.active : {}}
-        >
-          <Call02Icon />
-        </IconButton>
-        <IconButton
-          onClick={() => handleTab("mail")}
-          style={tab === "mail" ? styles.active : {}}
-        >
-          <Mail01Icon />
-        </IconButton>
-        <IconButton
-          sx={{
-            "@media (min-width: 1024px)": {
-              display: "none",
-            },
-          }}
-          onClick={() => handleTab("notifications")}
-          style={tab === "notifications" ? styles.active : {}}
-        >
-          <Notification01Icon />
-        </IconButton>
-        <IconButton
-          onClick={() => handleTab("groups")}
-          style={tab === "groups" ? styles.active : {}}
-        >
-          <UserGroupIcon />
-        </IconButton>
-        <IconButton
-          onClick={() => handleTab("account")}
-          style={tab === "account" ? styles.active : {}}
-        >
-          <UserCircleIcon />
-        </IconButton>
-      </Stack>
-    </>
+          <Icon size={20} />
+        </button>
+      ))}
+    </nav>
   );
 }

@@ -1,80 +1,83 @@
 "use client";
 
-import { Stack } from "@mui/material";
 import Nav from "../components/desktop/nav";
 import ChatNav from "../components/desktop/chatNav";
-import "../styles/chat.css";
 import ChatArea from "../components/desktop/chat-area";
 import Notifications from "../components/desktop/notifications";
 import { useState, useEffect, ReactNode } from "react";
-import Loading from "../components/desktop/loading";
 import { Poppins } from "next/font/google";
 import Suggestions from "../components/desktop/suggestions";
-import "./global.css";
 
 const poppins = Poppins({
   subsets: ["latin"],
   style: ["normal"],
-  weight: ["400", "600", "700"],
+  weight: ["400", "500", "600", "700"],
 });
 
 export default function AppLayout({ children }: { children: ReactNode }) {
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    setIsLoading(true);
+    setIsLoading(false);
   }, []);
 
-  if (!isLoading)
+  if (isLoading) {
     return (
-      <div className="flex justify-center items-center w-full h-screen">
-        <Loading />
+      <div className="flex justify-center items-center w-full h-screen bg-gradient-to-br from-slate-50 to-gray-100">
+        <div className="w-10 h-10 border-4 border-purple-500 border-t-transparent rounded-full animate-spin" />
       </div>
     );
+  }
 
   return (
     <html lang="en">
-      <body className={poppins.className}>
-        <Stack className="main-container w-full">
+      <body
+        className={`${poppins.className} bg-gradient-to-br from-slate-50 via-gray-50 to-slate-100 min-h-screen`}
+      >
+        <div className="flex flex-col h-screen">
           <Nav />
-          <main
-            direction="row"
-            className="w-full h-full sm:hidden xsm:hidden lg:flex desktop"
-          >
-            <Stack className="left-section overflow-auto">
-              <ChatNav />
-              <Stack className="px-1 py-3 w-full">{children}</Stack>
-            </Stack>
-            <Stack
-              className="middle-section justify-between shadow"
-              direction="column"
-            >
+
+          {/* Desktop Layout */}
+          <main className="flex-1 hidden lg:flex gap-4 p-4 overflow-hidden">
+            {/* Left Sidebar - Chat List */}
+            <aside className="w-[320px] flex-shrink-0 bg-white/80 backdrop-blur-sm rounded-2xl shadow-sm border border-gray-100 flex flex-col overflow-hidden">
+              <div className="p-4">
+                <ChatNav />
+              </div>
+              <div className="flex-1 overflow-y-auto px-4 pb-4">{children}</div>
+            </aside>
+
+            {/* Middle Section - Chat Area */}
+            <section className="flex-1 bg-white/80 backdrop-blur-sm rounded-2xl shadow-sm border border-gray-100 flex flex-col overflow-hidden">
               <ChatArea />
-            </Stack>
-            <Stack
-              className="right-section w-full h-full shadow px-2"
-              direction="column"
-            >
-              <Stack className="notifications h-1/2 w-full overflow-auto">
+            </section>
+
+            {/* Right Sidebar - Notifications & Suggestions */}
+            <aside className="w-[300px] flex-shrink-0 flex flex-col gap-4">
+              <div className="flex-1 bg-white/80 backdrop-blur-sm rounded-2xl shadow-sm border border-gray-100 overflow-y-auto p-4">
                 <Notifications />
-              </Stack>
-              <Stack className="suggestions h-1/2 w-full mt-4 overflow-auto">
+              </div>
+              <div className="flex-1 bg-white/80 backdrop-blur-sm rounded-2xl shadow-sm border border-gray-100 overflow-y-auto p-4">
                 <Suggestions />
-              </Stack>
-            </Stack>
+              </div>
+            </aside>
           </main>
-          <div className="mobile sm:flex-col lg:hidden w-full h-full xsm:overflow-auto sm:overflow-hidden">
-            <section className="h-full flex justify-between gap-6 p-6 chat-section-tablet">
-              <div className='sm:w-full xsm:w-full md:w-1/2 h-screen sm:overflow-auto'>{children}</div>
-              <div className="justify-between w-2/3 h-full sm:hidden xsm:hidden md:flex" >
+
+          {/* Mobile/Tablet Layout */}
+          <div className="flex-1 lg:hidden flex flex-col overflow-hidden">
+            <main className="flex-1 flex gap-4 p-4 overflow-hidden">
+              <div className="flex-1 bg-white/80 backdrop-blur-sm rounded-2xl shadow-sm border border-gray-100 overflow-y-auto p-4 md:w-1/2">
+                {children}
+              </div>
+              <div className="hidden md:flex flex-1 bg-white/80 backdrop-blur-sm rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
                 <ChatArea />
               </div>
-            </section>
-            <footer className="w-full bottom-0 absolute z-50 bg-white">
+            </main>
+            <footer className="bg-white/90 backdrop-blur-md border-t border-gray-200 px-4 py-2 safe-area-pb">
               <ChatNav />
             </footer>
           </div>
-        </Stack>
+        </div>
       </body>
     </html>
   );
