@@ -5,14 +5,19 @@ import ChatNav from "../components/desktop/chatNav";
 import ChatArea from "../components/desktop/chat-area";
 import Notifications from "../components/desktop/notifications";
 import { useState, useEffect, ReactNode } from "react";
+import { usePathname } from "next/navigation";
 import { Poppins } from "next/font/google";
 import Suggestions from "../components/desktop/suggestions";
 import {
-  ArrowLeft01Icon,
   ArrowRight01Icon,
   Notification01Icon,
   UserAdd01Icon,
 } from "hugeicons-react";
+import PhoneCenter from "../components/desktop/centers/phone-center";
+import MailCenter from "../components/desktop/centers/mail-center";
+import GroupsCenter from "../components/desktop/centers/groups-center";
+import AccountCenter from "../components/desktop/centers/account-center";
+import StatusCenter from "../components/desktop/centers/status-center";
 
 const poppins = Poppins({
   subsets: ["latin"],
@@ -23,10 +28,30 @@ const poppins = Poppins({
 export default function AppLayout({ children }: { children: ReactNode }) {
   const [isLoading, setIsLoading] = useState(true);
   const [isPanelOpen, setIsPanelOpen] = useState(true);
+  const pathname = usePathname();
 
   useEffect(() => {
     setIsLoading(false);
   }, []);
+
+  const getCenterContent = () => {
+    switch (pathname) {
+      case "/chat":
+        return <ChatArea />;
+      case "/phone":
+        return <PhoneCenter />;
+      case "/mail":
+        return <MailCenter />;
+      case "/groups":
+        return <GroupsCenter />;
+      case "/account":
+        return <AccountCenter />;
+      case "/status":
+        return <StatusCenter />;
+      default:
+        return <ChatArea />;
+    }
+  };
 
   if (isLoading) {
     return (
@@ -46,7 +71,7 @@ export default function AppLayout({ children }: { children: ReactNode }) {
 
           {/* Desktop Layout (lg and above) */}
           <main className="flex-1 hidden lg:flex gap-4 p-4 overflow-hidden">
-            {/* Left Sidebar - Chat List */}
+            {/* Left Sidebar */}
             <aside className="w-[320px] flex-shrink-0 bg-white/80 backdrop-blur-sm rounded-2xl shadow-sm border border-gray-100 flex flex-col overflow-hidden">
               <div className="p-4">
                 <ChatNav />
@@ -54,14 +79,14 @@ export default function AppLayout({ children }: { children: ReactNode }) {
               <div className="flex-1 overflow-y-auto px-4 pb-4">{children}</div>
             </aside>
 
-            {/* Middle Section - Chat Area */}
+            {/* Middle Section - Dynamic Content */}
             <section className="flex-1 bg-white/80 backdrop-blur-sm rounded-2xl shadow-sm border border-gray-100 flex flex-col overflow-hidden">
-              <ChatArea />
+              {getCenterContent()}
             </section>
 
             {/* Right Sidebar - Notifications & Suggestions (Collapsible) */}
             <aside
-              className={`flex-shrink-0 flex gap-2 transition-all duration-300 ${isPanelOpen ? "w-[300px]" : "w-10"}`}
+              className={`flex-shrink-0 flex gap-2 transition-all duration-300 ${isPanelOpen ? "w-[340px]" : "w-10"}`}
             >
               {/* Toggle Button */}
               <button
@@ -99,12 +124,12 @@ export default function AppLayout({ children }: { children: ReactNode }) {
                 {children}
               </div>
               <div className="flex-1 bg-white/80 backdrop-blur-sm rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
-                <ChatArea />
+                {getCenterContent()}
               </div>
 
               {/* Collapsible Right Panel for Tablet */}
               <aside
-                className={`flex-shrink-0 flex gap-2 transition-all duration-300 ${isPanelOpen ? "w-[260px]" : "w-10"}`}
+                className={`flex-shrink-0 flex gap-2 transition-all duration-300 ${isPanelOpen ? "w-[280px]" : "w-10"}`}
               >
                 {/* Toggle Button */}
                 <button
